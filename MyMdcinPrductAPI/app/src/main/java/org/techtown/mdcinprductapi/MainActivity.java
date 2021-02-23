@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         StringBuffer buffer=new StringBuffer();
 
 
-        String queryUrl="http://apis.data.go.kr/1471057/NonMdcinPrductPrmisnInfoService/getNonMdcinPrductPrmisnInfoList?ServiceKey="+key+"&class_no=32200";
+        String queryUrl="http://apis.data.go.kr/1471057/NonMdcinPrductPrmisnInfoService/getNonMdcinPrductPrmisnInfoList?ServiceKey="+key
+                +
+                "&class_no=32200&numOfRows=100&entp_name=(유)건영크린텍";
         try{
             URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
             InputStream is= url.openStream(); //url위치로 입력스트림 연결
