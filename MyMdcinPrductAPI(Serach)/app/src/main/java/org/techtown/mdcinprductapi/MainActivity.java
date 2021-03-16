@@ -1,6 +1,8 @@
 package org.techtown.mdcinprductapi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +16,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView text;
-    XmlPullParser xpp;
+    private ArrayList<Mask_list> masklist;
+    private Mask_Adapter maskadapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+
+    String ITEM_NAME;
+    String ENTP_NAME;
+    String ITEM_PERMIT_DATE;
+
+
     EditText editText;
     String key = "pPaSpIZ%2BXFweoQb0rmHH5gguuqHRO00DHw7CgOuW9wZ2c5HDm%2BwqWpv%2B29V9NIHAcggmnJz3ztzM8206Hkkw7A%3D%3D";
     String data;
@@ -28,29 +39,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        text = (TextView) findViewById(R.id.result);
+        recyclerView =(RecyclerView)findViewById(R.id.rv);
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        masklist = new ArrayList<>();
+
+        maskadapter = new Mask_Adapter(masklist);
+        recyclerView.setAdapter(maskadapter);
+
         editText = (EditText) findViewById(R.id.editText);
+
+
     }
 
     public void mOnClick(View v){
-        switch (v.getId()){
-            case R.id.button:
-                new Thread(new Runnable() {
+
+        maskadapter.clearmasklist();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                data=getXmlData();
+
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        data=getXmlData();
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                text.setText(data);
+                        maskadapter.notifyDataSetChanged();
                             }
-                        });
-                    }
-                }).start();
-                break;
-        }
+                });
+            }
+        }).start();
     }
+
     String getXmlData(){
 
         StringBuffer buffer=new StringBuffer();
@@ -86,22 +107,17 @@ public class MainActivity extends AppCompatActivity {
 
                         if(tag.equals("item")) ;// 첫번째 검색결과
                         else if(tag.equals("ITEM_NAME")){
-                            buffer.append("품목명: ");
                             xpp.next();
-                            buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n"); //줄바꿈 문자 추가
+                            ITEM_NAME = "이름: " + xpp.getText().toString();
                         }
                         else if(tag.equals("ENTP_NAME")){
-                            buffer.append("업체명: ");
                             xpp.next();
-                            buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n"); //줄바꿈 문자 추가
+                            ENTP_NAME = "업체명: " + xpp.getText().toString();
                         }
                         else if(tag.equals("ITEM_PERMIT_DATE")){
                             buffer.append("허가일: ");
                             xpp.next();
-                            buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n"); //줄바꿈 문자 추가
+                            ITEM_PERMIT_DATE = "허가일: " + xpp.getText().toString();
                         }
                         break;
 
@@ -111,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
                     case XmlPullParser.END_TAG:
                         tag= xpp.getName(); //테그 이름 얻어오기
 
-                        if(tag.equals("item")) buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
+                        if(tag.equals("item")) {
+                            Mask_list mask_list = new Mask_list(R.mipmap.ic_launcher, ITEM_NAME, ENTP_NAME, ITEM_PERMIT_DATE);
+                            masklist.add(mask_list);
+                            buffer.append("\n");
+                        }
                         break;
                 }
 
