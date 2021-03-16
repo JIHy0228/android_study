@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void mOnClick(View v){
 
-        maskadapter.clearmasklist();
+        maskadapter.ClearMaskList();
 
         new Thread(new Runnable() {
             @Override

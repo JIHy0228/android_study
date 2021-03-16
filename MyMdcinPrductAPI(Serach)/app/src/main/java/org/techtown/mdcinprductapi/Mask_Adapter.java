@@ -22,7 +22,7 @@ public class Mask_Adapter extends RecyclerView.Adapter<Mask_Adapter.CustomerView
 
     // 이전 검색된 데이터를 지우기 위함
 
-    public void clearmasklist() {
+    public void ClearMaskList() {
         int size = this.masklist.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {
