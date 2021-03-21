@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         {
         StringBuffer buffer=new StringBuffer();
 
-        String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=pPaSpIZ%2BXFweoQb0rmHH5gguuqHRO00DHw7CgOuW9wZ2c5HDm%2BwqWpv%2B29V9NIHAcggmnJz3ztzM8206Hkkw7A%3D%3D";
+        String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey="+key;
         try{
             URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
             InputStream is= url.openStream(); //url위치로 입력스트림 연결
