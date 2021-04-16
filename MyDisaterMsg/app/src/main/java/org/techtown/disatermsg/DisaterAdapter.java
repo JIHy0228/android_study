@@ -40,9 +40,10 @@ public class DisaterAdapter extends RecyclerView.Adapter<DisaterAdapter.Customer
         return rowlist.size();
     }
 
-    public void addItem(Row item){
+    public void addItem(Row item) {
         rowlist.add(item);
     }
+
     public class CustomerViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView create_data;
@@ -55,6 +56,18 @@ public class DisaterAdapter extends RecyclerView.Adapter<DisaterAdapter.Customer
             this.create_data = itemView.findViewById(R.id.create_data);
             this.location_name = itemView.findViewById(R.id.loaction_name);
             this.msg = itemView.findViewById(R.id.msg);
+        }
+    }
+
+    // search result refresh
+    public void Clear() {
+        int size = this.rowlist.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                rowlist.remove(0);
+            }
+
+            this.notifyItemRangeRemoved(0, size);
         }
     }
 }

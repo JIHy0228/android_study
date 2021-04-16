@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         tag= xpp.getName(); //테그 이름 얻어오기
 
                         if(tag.equals("item")) {
-                            Mask_list mask_list = new Mask_list(R.mipmap.ic_launcher, ITEM_NAME, ENTP_NAME, ITEM_PERMIT_DATE);
+                            Mask_list mask_list = new Mask_list(R.drawable.mask, ITEM_NAME, ENTP_NAME, ITEM_PERMIT_DATE);
                             masklist.add(mask_list);
                             buffer.append("\n");
                         }
