@@ -34,8 +34,17 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="지역선택" />
+                android:layout_weight="0.25"
+                android:text="검색" />.
+
+            <Button
+                android:id="@+id/morebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.25"
+                android:text="더보기" />
 
         </LinearLayout>
     </LinearLayout>
@@ -47,11 +56,7 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
+
 
 
 </LinearLayout>

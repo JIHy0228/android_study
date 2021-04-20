@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     public Row row;
 
+    Button morebtn;
+    int pageNo = 1;
+
+
     static RequestQueue requestQueue;
 
 
@@ -68,13 +72,22 @@ public class MainActivity extends AppCompatActivity {
         if (requestQueue == null){
             requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-            sendRequest();
+            sendRequest(pageNo);
 
         }
-    }
-    public void sendRequest() {
 
-        String url = "http://apis.data.go.kr/1741000/DisasterMsg3/getDisasterMsg1List?serviceKey="+key+"&numOfRows=1000";
+        morebtn = findViewById(R.id.morebtn);
+        morebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageNo++;
+                sendRequest(pageNo);
+            }
+        });
+    }
+    public void sendRequest(int pageNo) {
+
+        String url = "http://apis.data.go.kr/1741000/DisasterMsg3/getDisasterMsg1List?serviceKey="+key+"&numOfRows=1000&pageNo="+pageNo;
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,
